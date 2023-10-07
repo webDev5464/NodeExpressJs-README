@@ -1,13 +1,4 @@
 {
-  "name": "readme",
-  "version": "1.0.0",
-  "description": "Learning End testing purpose only.",
-  "main": "index.js",
-  "scripts": {
-    "test": "nodemon"
-  },
-  "author": "mr.dev_dave",
-  "license": "ISC",
   "dependencies": {
     "express": "^4.18.2"
   }

@@ -31,14 +31,34 @@ Set-ExecutionPolicy Unrestricted
 - mkdir myBackend
 - cd myBackend
 
-Use the npm init command to create a package.json file for your application.
-
-```bash
-npm init
-```
-
 Now install Express in the myBackend directory and save it in the dependencies list. For example:
 
 ```bash
 npm i express
+```
+
+## Write Hello World!
+
+- create new file `index.js`.
+
+```js
+const express = require("express");
+const app = express();
+const port = 4194;
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+app.listen(port, () => {
+  console.log(`Server running... , http://localhost:${port}`);
+});
+```
+
+🎉 Congratulation: Your local host created.
+
+let's run in browser. nodemon for starting server.
+
+```bash
+PS D:\NodeExpress\backend> nodemon
 ```
