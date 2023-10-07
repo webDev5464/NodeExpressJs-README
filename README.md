@@ -55,10 +55,10 @@ app.listen(port, () => {
 });
 ```
 
-🎉 Congratulation: Your local host created.
-
 let's run in browser. nodemon for starting server.
 
 ```bash
 PS D:\NodeExpress\backend> nodemon
 ```
+
+🎉 **Congratulation**: Your local host started.
