@@ -85,8 +85,6 @@ app.listen(port, () => {
 ```js
 const express = require("express");
 const app = express();
-app.use(express());
-app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -196,6 +194,8 @@ Now require end use.
 **`index.js`**
 
 ```js
+app.use(express());
+app.use(express.json());
 const dataControl = require("./controllers/dataControl.js");
 // some code
 app.post("/data", dataControl);
