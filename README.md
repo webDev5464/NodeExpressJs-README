@@ -156,7 +156,7 @@ Create new dir `model` end new file `createData.js`
 
 create model in database.
 
-**`createData.js`**
+**`model/createData.js`**
 
 ```js
 const mongoose = require("mongoose");
@@ -173,6 +173,8 @@ module.exports = dataCreated;
 Create new dir `controllers` end new file `dataControl.js`
 
 data detail end save data in mongodb.
+
+**`controllers/dataControl.js`**
 
 ```js
 const dataCreated = require("../model/createData.js");
