@@ -1,11 +1,18 @@
 const express = require("express");
 const app = express();
-const port = 4194;
+app.use(express());
+app.use(express.json());
+
+require("./config/mongoConnecting.js");
+const dataControl = require("./controllers/dataControl.js");
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Server Is Running");
 });
 
-app.listen(port, () => {
-  console.log(`Server running... , http://localhost:${port}`);
+app.post("/data", dataControl);
+
+const PORT = 5464;
+app.listen(PORT, () => {
+  console.log(`Running : http://localhost:${PORT}`);
 });
