@@ -204,3 +204,17 @@ app.post("/data", dataControl);
 ```
 
 ## 📌 Data post with postman
+
+- Create a new collection.
+- select post method
+- Enter localhost url end path.
+- Select body > row > json
+- add json form data
+- end send
+- sending process is continue running than your data is sending successfully
+
+![postman with post data](./assets/postmanWithPostMethod.png)
+
+- check mongodb database cluster data is added.
+
+![data is successfully posted](./assets/mongoDbPostData.png)
