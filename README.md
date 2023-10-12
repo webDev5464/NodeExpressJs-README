@@ -222,3 +222,38 @@ app.post("/data", postData);
 ![data is successfully posted](./assets/mongoDbPostData.png)
 
 ## 📌 Data get
+
+**`model/getData.js`**
+
+```js
+const createData = require("../controllers/createData");
+
+const getData = async (req, res) => {
+  let data = await createData.find({});
+  console.log(data);
+  res.send({ process: true, data });
+};
+
+module.exports = getData;
+```
+
+**`index.js`**
+
+```js
+const getData = require("./model/getData.js");
+
+// Some Code
+
+app.get("/getData", getData);
+```
+
+## 📌 Data get with postman
+
+- click get
+- enter url with path
+
+![get method in postman](./assets//getDataInPostman.png)
+
+---
+
+## 📌 post end get product data
