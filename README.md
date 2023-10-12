@@ -150,13 +150,13 @@ require in index.js
 require("./config/mongoConnecting.js");
 ```
 
-## 📌 backend true get data in mongodb.
+## 📌 data post in mongodb.
 
 Create new dir `model` end new file `createData.js`
 
 create model in database.
 
-**`model/createData.js`**
+**`controllers/createData.js`**
 
 ```js
 const mongoose = require("mongoose");
@@ -170,25 +170,25 @@ const dataCreated = mongoose.model("createdData", createData);
 module.exports = dataCreated;
 ```
 
-Create new dir `controllers` end new file `dataControl.js`
+Create new dir `model` end new file `dataControl.js`
 
 data detail end save data in mongodb.
 
-**`controllers/dataControl.js`**
+**`model/dataControl.js`**
 
 ```js
-const dataCreated = require("../model/createData.js");
+const createData = require("../controllers/createData.js");
 
-const dataControl = async (req, res) => {
+const postData = async (req, res) => {
   console.log(req.body);
-  const data = dataCreated({
+  const data = createData({
     title: req.body.title,
   });
 
   await data.save();
 };
 
-module.exports = dataControl;
+module.exports = postData;
 ```
 
 Now require end use.
@@ -198,9 +198,11 @@ Now require end use.
 ```js
 app.use(express());
 app.use(express.json());
-const dataControl = require("./controllers/dataControl.js");
+const postData = require("./controllers/postData.js");
+
 // some code
-app.post("/data", dataControl);
+
+app.post("/data", postData);
 ```
 
 ## 📌 Data post with postman
@@ -218,3 +220,5 @@ app.post("/data", dataControl);
 - check mongodb database cluster data is added.
 
 ![data is successfully posted](./assets/mongoDbPostData.png)
+
+## 📌 Data get

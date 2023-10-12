@@ -4,13 +4,13 @@ app.use(express());
 app.use(express.json());
 
 require("./config/mongoConnecting.js");
-const dataControl = require("./controllers/dataControl.js");
+const postData = require("./model/postData.js");
 
 app.get("/", (req, res) => {
   res.send("Server Is Running");
 });
 
-app.post("/data", dataControl);
+app.post("/data", postData);
 
 const PORT = 5464;
 app.listen(PORT, () => {
