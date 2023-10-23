@@ -205,7 +205,7 @@ const postData = require("./controllers/postData.js");
 app.post("/data", postData);
 ```
 
-## 📌 Data post with postman
+#### 🔺 Data post with postman
 
 - Create a new collection.
 - select post method
@@ -247,7 +247,7 @@ const getData = require("./model/getData.js");
 app.get("/getData", getData);
 ```
 
-## 📌 Data get with postman
+#### 🔺 Data get with postman
 
 - click get
 - enter url with path
@@ -256,4 +256,4 @@ app.get("/getData", getData);
 
 ---
 
-## 📌 post end get product data
+
