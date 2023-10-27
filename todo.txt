@@ -1,0 +1,6 @@
+/*
+  **** pending method ****
+  1. deleteData method.
+  2. connect with react.
+  3. client side create form end database side store data.
+*/
