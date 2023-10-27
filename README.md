@@ -150,7 +150,7 @@ require in index.js
 require("./config/mongoConnecting.js");
 ```
 
-## 📌 data post in mongodb.
+## 📌 postData in mongodb.
 
 Create new dir `model` end new file `createData.js`
 
@@ -196,16 +196,12 @@ Now require end use.
 **`index.js`**
 
 ```js
-app.use(express());
-app.use(express.json());
-const postData = require("./controllers/postData.js");
-
-// some code
-
+const postData = require("./model/postData.js");
+// Some Code
 app.post("/data", postData);
 ```
 
-#### 🔺 Data post with postman
+#### 🔺 postData with postman
 
 - Create a new collection.
 - select post method
@@ -221,7 +217,7 @@ app.post("/data", postData);
 
 ![data is successfully posted](./assets/mongoDbPostData.png)
 
-## 📌 Data get
+## 📌 getData method
 
 **`model/getData.js`**
 
@@ -241,13 +237,11 @@ module.exports = getData;
 
 ```js
 const getData = require("./model/getData.js");
-
 // Some Code
-
 app.get("/getData", getData);
 ```
 
-#### 🔺 Data get with postman
+#### 🔺 getData with postman
 
 - click get
 - enter url with path
@@ -256,4 +250,119 @@ app.get("/getData", getData);
 
 ---
 
+## 📌 createData, postData, getAllData end getCategoryData method
 
+#### 🔺 createData method
+
+- create a new products `controllers`
+
+**`controllers/createProductData.js`**
+
+```js
+const mongoose = require("mongoose")
+
+const createProductData = mongoose.Schema({
+  category: String,
+  brand: String,
+  img_1: String,
+  img_2: String,
+  img_3: String,
+  title: String,
+  weight: String,
+  price: Number,
+  discount: Number
+})
+
+const productData = mongoose.model("productData", createProductData)
+
+module.exports = productData
+```
+
+#### 🔺 postData method
+
+- create new `model`
+
+**`model/postProductData.js`**
+
+```js
+const createdProductData = require("../controllers/createProductData")
+
+const postProductData = async (req, res) => {
+  console.log(req.body);
+  const data = createdProductData({
+    category: req.body.category,
+    brand: req.body.brand,
+    img_1: req.body.img_1,
+    img_2: req.body.img_2,
+    img_3: req.body.img_3,
+    title: req.body.title,
+    weight: req.body.weight,
+    price: req.body.price,
+    discount: req.body.discount,
+  })
+
+  await data.save()
+}
+
+module.exports = postProductData
+```
+
+**`index.js`**
+
+```js
+const postProductData = require("./model/postProductData.js");
+// Some Code
+app.post("/postProductData", postProductData)
+```
+
+#### 🔺 getAllData method
+
+- create new `model`
+
+**`/model/getProductData.js`**
+
+```js
+const createdProductData = require("../controllers/createProductData")
+
+const getProduct = async (req, res) => {
+  let data = await createdProductData.find({})
+  console.log(data);
+  res.send({ process: true, data })
+}
+
+module.exports = getProduct
+```
+
+**`index.js`**
+
+```js
+const getProduct = require("./model/getProductData.js");
+//Some Code
+app.get("/getAllProducts", getProduct)
+```
+
+#### 🔺 getCategoryData method
+
+- create new `model`
+
+**`/model/getProductsByCategory.js`**
+
+```js
+const productData = require("../controllers/createProductData");
+
+let getProductsByCategory = async (req, res) => {
+  let productCategory = await productData.find({ category: req.params.products })
+  console.log(productCategory);
+  res.send({ process: true, productCategory })
+}
+
+module.exports = getProductsByCategory
+```
+
+**`index.js`**
+
+```js
+const getProductsByCategory = require("./model/getProductsByCategory.js");
+// Some Code
+app.get("/products/category/:products", getProductsByCategory)
+```
