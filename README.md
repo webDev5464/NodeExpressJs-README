@@ -157,10 +157,6 @@ In this example, the `req` object is used to access the query parameter `paramNa
 
 These objects are essential for building web applications in Express.js as they allow you to handle incoming requests and send appropriate responses to the client based on those requests.
 
-## 📌 Basic Routing
-
-**Routing** refers to determining how an application responds to a client request to a particular endpoint, which is a URI (or path) and a specific HTTP request method (GET, POST, and so on).
-
 #### 🔺 get method
 
 Respond with Hello World! on the homepage:
@@ -242,7 +238,9 @@ require in index.js
 **`index.js`**
 
 ```js
+// Some Code
 require('./configs/databaseConnection')
+// Some Code
 ```
 
 ## 📌 postData in mongodb.
@@ -295,10 +293,30 @@ Now require end use.
 **`index.js`**
 
 ```js
+const express = require('express')
+const app = express()
+
+// is require
+// database side data store in json formate.
+app.use(express.json())
+
+// require API
 const postData = require("./controllers/postData.js");
-// Some Code
+
+app.get('/', (req, res) => {
+  res.send("Server is live 🟢")
+})
+
+// use API with post method
 app.post("/data", postData);
+
+const PORT = 8080
+app.listen(PORT, () => {
+  console.log(`Server Connected : http://localhost:${PORT}`);
+})
 ```
+
+****
 
 #### 🔺 postData with postman
 
@@ -480,3 +498,6 @@ const getProductsByCategory = require("./controllers/getProductsByCategory.js");
 // Some Code
 app.get("/products/category/:products", getProductsByCategory)
 ```
+
+****
+****
