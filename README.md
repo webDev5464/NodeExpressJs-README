@@ -63,24 +63,43 @@ PS D:\NodeExpress\backend> nodemon
 
 🎉 **Congratulation**: Your local host started.
 
-## 📌 Create A home page route
+**`index.js`**
+
+## 📌 Create server
 
 ```js
 const express = require("express");
 const app = express();
+
 const port = 7070;
-
-// Home page route
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 app.listen(port, () => {
   console.log(`Server running... , http://localhost:${port}`);
 });
 ```
 
-#### 🔺 multiple page create route
+## 📌 Create home page API
+
+**`index.js`**
+
+```js
+const express = require("express");
+const app = express();
+
+/* ----- */
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+/* ----- */
+
+const port = 7070;
+app.listen(port, () => {
+  console.log(`Server running... , http://localhost:${port}`);
+});
+```
+
+#### 🔺 multiple API
+
+**`index.js`**
 
 ```js
 const express = require("express");
@@ -128,7 +147,7 @@ npm i mongoose
 
 Create new dir `config` end file `mongoConnecting.js`.
 
-**`./config/mongoConnecting.js`**
+**`/config/mongoConnecting.js`**
 
 ```js
 const mongoose = require("mongoose");
@@ -152,11 +171,13 @@ require("./config/mongoConnecting.js");
 
 ## 📌 postData in mongodb.
 
-Create new dir `model` end new file `createData.js`
+#### 🔺 Create models
+
+Create new dir `models` end new file `createData.js`
 
 create model in database.
 
-**`controllers/createData.js`**
+**`/models/createData.js`**
 
 ```js
 const mongoose = require("mongoose");
@@ -170,14 +191,16 @@ const dataCreated = mongoose.model("createdData", createData);
 module.exports = dataCreated;
 ```
 
-Create new dir `model` end new file `dataControl.js`
+#### 🔺 create controllers (API)
+
+Create new dir `controllers` end new file `postData.js`
 
 data detail end save data in mongodb.
 
-**`model/dataControl.js`**
+**`/controllers/postData.js`**
 
 ```js
-const createData = require("../controllers/createData.js");
+const createData = require("../models/createData.js");
 
 const postData = async (req, res) => {
   console.log(req.body);
@@ -196,7 +219,7 @@ Now require end use.
 **`index.js`**
 
 ```js
-const postData = require("./model/postData.js");
+const postData = require("./controllers/postData.js");
 // Some Code
 app.post("/data", postData);
 ```
@@ -217,12 +240,12 @@ app.post("/data", postData);
 
 ![data is successfully posted](./assets/mongoDbPostData.png)
 
-## 📌 getData method
+#### 🔺 getData method
 
-**`model/getData.js`**
+**`/controllers/getData.js`**
 
 ```js
-const createData = require("../controllers/createData");
+const createData = require("../models/createData");
 
 const getData = async (req, res) => {
   let data = await createData.find({});
@@ -236,7 +259,7 @@ module.exports = getData;
 **`index.js`**
 
 ```js
-const getData = require("./model/getData.js");
+const getData = require("./controllers/getData.js");
 // Some Code
 app.get("/getData", getData);
 ```
@@ -248,15 +271,30 @@ app.get("/getData", getData);
 
 ![get method in postman](./assets//getDataInPostman.png)
 
+#### 🔺 deleteData method
+
+**`/controllers/deleteData.js`**
+
+```js
+const createData = require("../models/createData");
+
+const deleteData = async (req, res) => {
+  const id = req.params.id
+  await createData.findByIdAndDelete(id)
+}
+
+module.exports = deleteData
+```
+
 ---
 
 ## 📌 createData, postData, getAllData end getCategoryData method
 
 #### 🔺 createData method
 
-- create a new products `controllers`
+- create a new products `models`
 
-**`controllers/createProductData.js`**
+**`models/createProductData.js`**
 
 ```js
 const mongoose = require("mongoose")
@@ -280,12 +318,12 @@ module.exports = productData
 
 #### 🔺 postData method
 
-- create new `model`
+- create new `controllers`
 
-**`model/postProductData.js`**
+**`/controllers/postProductData.js`**
 
 ```js
-const createdProductData = require("../controllers/createProductData")
+const createdProductData = require("../models/createProductData")
 
 const postProductData = async (req, res) => {
   console.log(req.body);
@@ -310,19 +348,19 @@ module.exports = postProductData
 **`index.js`**
 
 ```js
-const postProductData = require("./model/postProductData.js");
+const postProductData = require("./controllers/postProductData.js");
 // Some Code
 app.post("/postProductData", postProductData)
 ```
 
 #### 🔺 getAllData method
 
-- create new `model`
+- create new `controllers`
 
-**`/model/getProductData.js`**
+**`/controllers/getProductData.js`**
 
 ```js
-const createdProductData = require("../controllers/createProductData")
+const createdProductData = require("../models/createProductData")
 
 const getProduct = async (req, res) => {
   let data = await createdProductData.find({})
@@ -336,19 +374,19 @@ module.exports = getProduct
 **`index.js`**
 
 ```js
-const getProduct = require("./model/getProductData.js");
+const getProduct = require("./controllers/getProductData.js");
 //Some Code
 app.get("/getAllProducts", getProduct)
 ```
 
 #### 🔺 getCategoryData method
 
-- create new `model`
+- create new `controllers`
 
-**`/model/getProductsByCategory.js`**
+**`/controllers/getProductsByCategory.js`**
 
 ```js
-const productData = require("../controllers/createProductData");
+const productData = require("../models/createProductData");
 
 let getProductsByCategory = async (req, res) => {
   let productCategory = await productData.find({ category: req.params.products })
@@ -362,7 +400,7 @@ module.exports = getProductsByCategory
 **`index.js`**
 
 ```js
-const getProductsByCategory = require("./model/getProductsByCategory.js");
+const getProductsByCategory = require("./controllers/getProductsByCategory.js");
 // Some Code
 app.get("/products/category/:products", getProductsByCategory)
 ```
