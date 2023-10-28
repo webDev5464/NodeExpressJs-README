@@ -34,11 +34,11 @@ Set-ExecutionPolicy Unrestricted
 Now install Express in the myBackend directory and save it in the dependencies list. For example:
 
 ```bash
-npm i express
+npm init
 ```
 
 ```bash
-npm init
+npm i express
 ```
 
 ## 📌 Run as a localhost.
@@ -46,13 +46,13 @@ npm init
 - create new file `index.js`.
 
 ```js
-const express = require("express");
-const app = express();
-const port = 7070;
+const express = require('express')
+const app = express()
 
+const port = 8080
 app.listen(port, () => {
-  console.log(`Server running... , http://localhost:${port}`);
-});
+  console.log(`Server Started : http://localhost:${port}`);
+})
 ```
 
 let's run in browser. nodemon for starting server.
@@ -82,19 +82,19 @@ app.listen(port, () => {
 **`index.js`**
 
 ```js
-const express = require("express");
-const app = express();
+const express = require('express')
+const app = express()
 
 /* ----- */
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.get('/', (req, res) => {
+  res.send("Hello Express")
+})
 /* ----- */
 
-const port = 7070;
+const port = 8080
 app.listen(port, () => {
-  console.log(`Server running... , http://localhost:${port}`);
-});
+  console.log(`Server Started : http://localhost:${port}`);
+})
 ```
 
 #### 🔺 multiple API
@@ -102,24 +102,104 @@ app.listen(port, () => {
 **`index.js`**
 
 ```js
-const express = require("express");
-const app = express();
+const express = require('express')
+const app = express()
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.get('/', (req, res) => {
+  res.send("Hello Express")
+})
 
-app.get("/about", (req, res) => {
-  res.send("This is a about page route");
-});
+app.get('/about', (req, res) => {
+  res.send("This is a about page")
+})
 
-const port = 7070;
+const port = 8080
 app.listen(port, () => {
-  console.log(`Server running... , http://localhost:${port}`);
-});
+  console.log(`Server Started : http://localhost:${port}`);
+})
 ```
 
 change localhost path end check output :- `http://localhost:7070/about`
+
+## 📌 What is req (request) & res (response) ?
+
+In Express.js, "request" and "response" are two fundamental objects used when handling HTTP requests and generating HTTP responses in your web applications. They represent the incoming request made by a client (usually a web browser) and the outgoing response that your server sends back to the client. Here's what each object represents:
+
+**1. ** Request (`req`):
+
+- The `req` object represents the HTTP request made by the client. It contains information about the incoming request, such as the URL, HTTP method (GET, POST, etc.), request headers, request parameters, and any data sent in the request body.
+
+- You can access various properties and methods on the `req` object to retrieve data from the request, such as `req.params`, `req.query`, `req.body`, and `req.headers`.
+
+- You can also use `req` to perform tasks like authentication, validation, and processing the incoming data.
+
+**2. ** Response (`res`):
+
+- The `res` object represents the HTTP response that your Express application will send back to the client. It's used to set response headers, send data to the client, and manage the response status.
+
+- You can use methods and properties on the `res` object to send data back to the client, including `res.send()`, `res.json()`, and `res.render()`.
+
+- You can also set HTTP response headers using methods like `res.set()` and set the HTTP status code using `res.status()`.
+
+Here's a simple example of how you might use req and res in an Express route handler:
+
+```js
+app.get('/example', (req, res) => {
+  // Access request data
+  const queryParam = req.query.paramName;
+  
+  // Send a response to the client
+  res.status(200).send('Hello, World!');
+});
+```
+
+In this example, the `req` object is used to access the query parameter `paramName` from the URL, and the `res` object is used to send the "Hello, World!" response with an HTTP status code of 200.
+
+These objects are essential for building web applications in Express.js as they allow you to handle incoming requests and send appropriate responses to the client based on those requests.
+
+## 📌 Basic Routing
+
+**Routing** refers to determining how an application responds to a client request to a particular endpoint, which is a URI (or path) and a specific HTTP request method (GET, POST, and so on).
+
+#### 🔺 get method
+
+Respond with Hello World! on the homepage:
+
+```js
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+```
+
+#### 🔺 post method
+
+Respond to POST request on the root route (/), the application’s home page:
+
+```js
+app.post('/', (req, res) => {
+  res.send('Got a POST request')
+})
+```
+
+#### 🔺 put method
+
+Respond to a PUT request to the /user route:
+
+```js
+app.put('/user', (req, res) => {
+  res.send('Got a PUT request at /user')
+})
+```
+
+#### 🔺 delete method
+
+Respond to a DELETE request to the /user route:
+
+```js
+app.delete('/user', (req, res) => {
+  res.send('Got a DELETE request at /user')
+})
+```
 
 ## 📌 Connect With mongoDb
 
@@ -145,20 +225,16 @@ change localhost path end check output :- `http://localhost:7070/about`
 npm i mongoose
 ```
 
-Create new dir `config` end file `mongoConnecting.js`.
+Create new dir `configs` end file `databaseConnection.js`.
 
-**`/config/mongoConnecting.js`**
+**`/configs/databaseConnection.js`**
 
 ```js
-const mongoose = require("mongoose");
+const { default: mongoose } = require("mongoose");
 
-mongoose
-  .connect(
-    "mongodb+srv://nodeExpressREADME:nodeExpressREADME@cluster0.mivh.mongodb.net/?retryWrites=true&w=majority"
-  )
-  .then(() => {
-    console.log("Connected database");
-  });
+mongoose.connect("mongodb+srv://readme:readme@nodeexpress-readme.5sz7pau.mongodb.net/?retryWrites=true&w=majority").then(() => {
+  console.log("Database Connected...");
+})
 ```
 
 require in index.js
@@ -166,7 +242,7 @@ require in index.js
 **`index.js`**
 
 ```js
-require("./config/mongoConnecting.js");
+require('./configs/databaseConnection')
 ```
 
 ## 📌 postData in mongodb.
