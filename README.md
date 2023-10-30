@@ -501,3 +501,51 @@ app.get("/products/category/:products", getProductsByCategory)
 
 ****
 ****
+
+## 🎓 NodeJs, ExpressJs $ MongoDb Connect with react
+
+#### ⚙️ backend side installation dependency.
+
+- init
+
+```bash
+npm init
+```
+
+- install express
+
+```bash
+npm i express
+```
+
+- install mongoose for connect with database
+
+```bash
+npm i mongoose
+```
+
+- install cors for connect with frontend
+
+```bash
+npm i cors
+```
+
+#### ⚙️ frontend side installation dependency.
+
+- install react
+
+```bash
+npm create vite ./
+```
+
+- install modules
+
+```bash
+npm i
+```
+
+- install axios for connect backend
+
+```bash
+npm i axios
+```
