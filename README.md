@@ -549,3 +549,11 @@ npm i
 ```bash
 npm i axios
 ```
+
+****
+****
+****
+
+# 🪪 License
+
+[MIT License](/LICENSE) : Copyright (c) 2023 Dev_eLoper
