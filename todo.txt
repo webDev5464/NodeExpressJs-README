@@ -1,7 +1,0 @@
-"D-29102023 T-0205am" : {
-  -delete :- backend testing dir. 
-  | 
-  -added method's using database end postman :- ['create server', 'create routes API', 'postData', 'getAllData', 'getCategoryData', 'deleteData']. 
-  | 
-  -pending :- ['What is EJS?' ,'connect with react backend database', 'auth method react with express', 'client admin side product post end user side get products with small project.']
-};

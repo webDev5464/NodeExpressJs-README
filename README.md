@@ -12,7 +12,7 @@ Postman also available in Vs Code as Extension. _Search Postman_
 
 - Now open powershell as administer.
 
-Install nodemon in your system.
+Install nodemon in your system
 
 - Way install nodemon ?
 
