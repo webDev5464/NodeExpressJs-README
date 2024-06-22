@@ -550,6 +550,10 @@ npm i
 npm i axios
 ```
 
+## Status Code
+
+- [Click Here!](./pages/StatusCode.md)
+
 ****
 ****
 ****
